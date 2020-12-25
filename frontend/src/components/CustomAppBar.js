@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DenseAppBar() {
+export default function CustomAppBar() {
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 

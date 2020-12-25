@@ -1,0 +1,12 @@
+.home {
+    text-align: center;
+}
+
+.home > * {
+    margin: 20px auto;
+}
+
+.home > hr {
+    width: 80vw;
+}
+

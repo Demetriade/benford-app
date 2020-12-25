@@ -1,0 +1,31 @@
+.what {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.what > * {
+    margin: 20px auto;
+}
+
+.what > hr {
+    width: 80vw;
+}
+
+.title {
+    text-align: center;
+}
+
+.explication {
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.explication > * {
+    margin: 10px auto;
+}
+
+.explication > h2 {
+    margin:0 10px 0 0;
+}
