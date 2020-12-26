@@ -1,7 +1,18 @@
 from PIL import Image
+from flask import request, url_for
+from flask_api import FlaskAPI, status, exceptions
 
 
-def main():
+app = FlaskAPI(__name__)
+
+
+@app.route("/image", methods=['POST'])
+def image_receiver():
+    print(request.data)
+    return {"text": "ok bien recu!"}, status.HTTP_201_CREATED
+
+
+def get_percents():
     print("Hello World!")
     digits = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     im = Image.open("images/chat.jpg", "r")
@@ -14,7 +25,8 @@ def main():
     total = sum(digits)
     percents = [val*100/total for val in digits]
     print(percents)
+    # req.files.uploadedImage.data
 
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
