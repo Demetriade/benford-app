@@ -10,3 +10,11 @@
     width: 80vw;
 }
 
+.title {
+    padding-top: 20px;
+}
+
+.MuiButton-root {
+    background-color: red;
+}
+
