@@ -1,5 +1,8 @@
 .home {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .home > * {
@@ -13,8 +16,3 @@
 .title {
     padding-top: 20px;
 }
-
-.MuiButton-root {
-    background-color: red;
-}
-
