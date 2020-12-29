@@ -16,3 +16,7 @@
 .title {
     padding-top: 20px;
 }
+
+.cardsResult > * {
+    margin: 10px auto;
+}

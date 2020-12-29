@@ -5,7 +5,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import "./What.css";
-import imageUrl from "../static/images/benf.PNG"
+import imageUrl from "../static/image/benf.PNG"
 
 
 const What = () => {
@@ -17,10 +17,11 @@ const What = () => {
         <hr />
         <div className="explication">
           <Typography variant="caption" style={{display: 'inline-block', fontSize: "medium"}}>
-              In the world of fraud detection, there is a mathemetic law that is use a lot. This one may look like magic at first look, but it is a little more complex.
-              Of course, this is Benford's law. The basic explication are if we take the first digit of every numbers in a data set, then we calculate the pourcentage of
-              their occurence and sort them by digit order, the pourcentage of ones will be around 30%, the other pourcentage will decrease until the digit nine that his pourcentage will be around 5 pourcent.
-              (Look the graph under) 
+              In the world of fraud detection, there is a widely used mathematical law. This one might seem magical at first glance, but it's a bit more complex.
+              This is called Benford's law. For the popularized explanation, imagine that we take the first digit of each number in a data set. These numbers are
+              between 1 and 9. If we calculate the percentage of their frequency and sort them in order of digits on an "x" axis, the percentage of "1" will be 
+              around 30%. The other percentages will decrease until the digit "9". The frequency of number nine should be around 5%.
+              For a better idea, the graph under allows us to view this probability distribution.
           </Typography>
           
           <br />
@@ -36,8 +37,10 @@ const What = () => {
           </Card>
 
           <Typography variant="caption" style={{display: 'inline-block', fontSize: "medium"}}>
-              On this site, we can experiment this law with images. More precisely, if we take the first digit of every pixel color codes, then we are able to apply
-              benford's law to see the distribution of digits. This is one of many application of this particular law. 
+              On this site, we can experiment with this law with pictures. We can either choose an image on our device or search for an Instagram post. In both scenarios we can see
+              the distribution of the digits and obtain a degree of falsity. Specifically, after sending the image, the site uses all the first digits of each pixel color code
+              and calculate their frequency. Then, the site compares the results with Benford's law to estimate a factor. This allows to see the authenticity of an image. This 
+              is one of the many applications of this particular law. 
           </Typography>
         </div>
       </div>

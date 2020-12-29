@@ -18,7 +18,7 @@ const theme = createMuiTheme({
     MuiDropzoneArea: {
       root: {
         backgroundColor: "#3c3e42",
-        width: "75vw",
+        width: "55vw",
         height: "100px",
         marginRight: "auto",
         marginLeft: "auto"
@@ -49,9 +49,7 @@ const Home = () => {
         const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
         
         console.log("image sent", base64String)
-        let formData = new FormData()
-        formData.append("uploadedImage", base64String)
-        axios.post("http://localhost:5000/api/image", formData)
+        axios.post("http://localhost:5000/api/image", {"uploadedImage": base64String})
                   .then(response => { 
                     console.log(response.data)
                     setData(response.data.percents)
@@ -69,7 +67,7 @@ const Home = () => {
         </Typography>
         <hr />
         <Typography variant="caption" className="explication" style={{display: 'inline-block', fontSize: "medium", width: "80vw", marginLeft: "auto", marginRight: "auto"}}>
-            Select an image from your device to see the degree of fakeness. The result may not be allways right.
+            Select an image from your device to see the confidence.
         </Typography>
         
         <MuiThemeProvider theme={theme}>
@@ -94,18 +92,28 @@ const Home = () => {
           )}
         
         {data.length !== 0 ? 
-        <Card className="cardChart">
-          <CardHeader title="Results of digit's distribution" />
-          <CardContent>
-            <Chart width={'50vw'} height={"400px"} chartType="Bar" loader={<div>Loading Chart</div>} data={data.data} options={data.options} className="barChart" />
-            <Typography style={{"color": "#4285f4", textAlign: "left"}} variant="body2" component="p">
-                Theoretical Benford's distribution
-            </Typography>
-            <Typography style={{"color": "#db4437", textAlign: "left"}} variant="body2" component="p">
-                Image's distribution
-            </Typography>
-          </CardContent>
-        </Card> : <p>Your result will appear here</p>}
+        <div className="cardsResult">
+          <Card>
+            <CardContent className="confidence" style={{backgroundColor: data.confidence.color}}>
+              <Typography style={{"color": "white", textAlign: "center", fontSize: "20px", paddingTop: "5px", paddingBottom: "5px"}} variant="caption">
+                  Confidence : {data.confidence.factor}%
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card className="cardChart">
+            <CardHeader title="Results of digit's distribution" />
+            <CardContent>
+              <Chart width={'50vw'} height={"400px"} chartType="Bar" loader={<div>Loading Chart</div>} data={data.data} options={data.options} className="barChart" />
+              <Typography style={{"color": "#4285f4", textAlign: "left"}} variant="body2" component="p">
+                  Theoretical Benford's distribution
+              </Typography>
+              <Typography style={{"color": "#db4437", textAlign: "left"}} variant="body2" component="p">
+                  Image's distribution
+              </Typography>
+            </CardContent>
+          </Card>
+        </div>
+        : <p>Your result will appear here</p>}
     </div>
   );
 }

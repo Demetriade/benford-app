@@ -1,20 +1,12 @@
 from PIL import Image
 import base64
 import io
-from flask import request, url_for
-from flask_api import FlaskAPI, status, exceptions
-from flask_cors import CORS
 
 
-app = FlaskAPI(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-
-@app.route("/api/image", methods=['POST'])
-def image_receiver():
+def image_receiver(message, _):
     print("Received")
-    percents = get_percents(request.data["uploadedImage"])
-    return {"text": "ok bien recu!", "percents": percents}, status.HTTP_200_OK
+    percents = get_percents(message["uploadedImage"])
+    return {"text": "ok bien recu!", "percents": percents}
 
 
 def get_percents(base64String):
@@ -76,7 +68,3 @@ def get_confidence(data):
     color = "#be5046"
   result = "{:.2f}".format(result)
   return {"factor": result, "color": color}
-
-
-if __name__ == "__main__":
-    app.run(debug=True)

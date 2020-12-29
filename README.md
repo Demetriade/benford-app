@@ -1,6 +1,6 @@
 # Benford-App
 
-Benford-App is a Python API and a web page for manipulating the Benford's law.
+Benford-App is a Python API and a web page testing Benford's law.
 
 ## Local installation
 
@@ -30,3 +30,5 @@ python api.py
 cd frontend
 npm start
 ```
+
+/mnt/c/Users/CADem/Desktop/benford-app/api /mnt/c/Users/CADem/Desktop/benford-app/terraform
