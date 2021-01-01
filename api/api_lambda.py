@@ -1,16 +1,27 @@
 from PIL import Image
 import base64
 import io
+import json
 
 
 def image_receiver(message, _):
-    print("Received")
-    percents = get_percents(message["uploadedImage"])
-    return {"text": "ok bien recu!", "percents": percents}
+    #message = json.loads(message)
+    print(f"Received: {message}")
+    body = message['body']
+    print(f"Body: {body}")
+    im = json.loads(body)
+    print(f"Image: {im}")
+    #if not message.get("body", {}).get("uploadedImage"):
+    if not im['uploadedImage']:
+        return {"statusCode": 400, "headers": {"Content-Type": "application/json"}, "body": json.dumps({"Error": "Invalid request content"})}
+
+    percents = get_percents(im['uploadedImage'])
+    print(f"Results: {percents}")
+    return {"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": json.dumps({"text": "ok bien recu!", "percents": percents})}
 
 
-def get_percents(base64String):
-    msg = base64.b64decode(base64String)
+def get_percents(base64_string):
+    msg = base64.b64decode(base64_string)
     buf = io.BytesIO(msg)
     im = Image.open(buf)
     digits = [0, 0, 0, 0, 0, 0, 0, 0, 0]

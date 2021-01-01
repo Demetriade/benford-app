@@ -1,10 +1,8 @@
 resource "aws_lambda_function" "benford_api" {
   function_name = "benford-api"
-  handler       = "api.image_receiver"
-  runtime       = "python3.8"
 
-  filename         = "${abspath(path.module)}/../.builds/benford_api.zip"
-  source_code_hash = filebase64sha256("${abspath(path.module)}/../.builds/benford_api.zip")
+  image_uri      = "${aws_ecr_repository.benford_api.repository_url}:latest"
+  package_type   = "Image"
 
   role = aws_iam_role.benford_api_role.arn
 }
