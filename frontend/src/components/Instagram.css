@@ -1,0 +1,22 @@
+.home {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.home > * {
+    margin: 20px auto;
+}
+
+.home > hr {
+    width: 80vw;
+}
+
+.title {
+    padding-top: 20px;
+}
+
+.cardsResult > * {
+    margin: 10px auto;
+}
