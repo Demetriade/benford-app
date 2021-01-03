@@ -3,6 +3,7 @@ resource "aws_lambda_function" "benford_api" {
 
   image_uri      = "${aws_ecr_repository.benford_api.repository_url}:latest"
   package_type   = "Image"
+  timeout        = 30
 
   role = aws_iam_role.benford_api_role.arn
 }

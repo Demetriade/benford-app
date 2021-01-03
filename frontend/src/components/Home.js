@@ -32,15 +32,15 @@ const Home = () => {
   const [image, setImage] = React.useState();
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [encodedImage, setEncodedImage] = React.useState("");
+  const [error, setError] = React.useState();
 
   const handleChange = (newFile) => {
     setImage(newFile[0])
   }
   
-  async function sendImage() {
+  function sendImage() {
     setIsLoading(true)
-    await convertBase64()
+    convertBase64AndSend()
     // https://2ymo7jpddd.execute-api.us-east-1.amazonaws.com/production/image
     // http://localhost:5000/api/image
     /*let response = await fetch("/image", {
@@ -51,39 +51,48 @@ const Home = () => {
       },
       body: JSON.stringify({"uploadedImage": encodedImage})
     })
-    console.log("Response", response)
-    let body = response.body
-    console.log("Body", body)
-    body = JSON.parse(body)
+    console.log("Response", await response)
+    let body = await response.body
+    console.log("Body", body)*/
+    /*body = JSON.parse(body)
     setData(body.percents)
     setIsLoading(false)*/
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json'
-    }
-    axios.post("/image", JSON.stringify({"uploadedImage": encodedImage}), {
-          headers: headers
-        })
-          .then(response => { 
-            console.log(response.data)
-            setData(response.data.percents)
-            setIsLoading(false) })
-          .catch(error => { console.log(error)
-                            setIsLoading(false) })
   }
 
-  async function convertBase64() {
+  function convertBase64AndSend() {
     // encode the file using the FileReader API
     const reader = new FileReader();
     if (data) {
       reader.onloadend = () => {
         // use a regex to remove data url part
         const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
-        setEncodedImage(base64String)
         console.log("image converted", base64String)
+        send(base64String)
         };
       reader.readAsDataURL(image);
     }
+  }
+
+  function send(base64) {
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+
+    }
+    axios.post("/image", JSON.stringify({"uploadedImage": base64}), {
+          headers: headers
+        })
+          .then(response => { 
+            console.log("Response", response)
+            let body = response.data
+            console.log("Body", body)
+            setData(body.percents)
+            setIsLoading(false)
+            setError() })
+          .catch(error => { console.log("Erreur", error)
+                            setIsLoading(false)
+                            setError(error) })
   }
 
   return (
@@ -96,14 +105,26 @@ const Home = () => {
             Select an image from your device to see the confidence.
         </Typography>
         
-        <MuiThemeProvider theme={theme}>
-          <DropzoneArea
-            onDrop={handleChange}
-            showFileNames
-            dropzoneText="Drag and drop an image here or click"
-            showAlerts={true}
-            filesLimit={1} />
-        </MuiThemeProvider>
+        <div className="cardsResult">
+          {error &&
+          <Card>
+            <CardContent className="confidence" style={{backgroundColor: "#852020"}}>
+              <Typography style={{"color": "white", textAlign: "center", fontSize: "20px", paddingTop: "5px", paddingBottom: "5px"}} variant="caption">
+                  {error.toString()}
+              </Typography>
+            </CardContent>
+          </Card>}
+          
+          <MuiThemeProvider theme={theme}>
+            <DropzoneArea
+              onDrop={handleChange}
+              showFileNames
+              dropzoneText="Drag and drop an image here or click"
+              showAlerts={true}
+              filesLimit={1} />
+          </MuiThemeProvider>
+        </div>
+  
         {isLoading ?
           <Button disabled variant="contained" style={{ backgroundColor: "#082745", width: "150px", color: "#8a8a8a", marginLeft: "auto", marginRight: "auto" }} className="sendButton" onClick={sendImage}>
             <CircularProgress color="secondary" />
