@@ -37,10 +37,10 @@ const What = () => {
           </Card>
 
           <Typography variant="caption" style={{display: 'inline-block', fontSize: "medium"}}>
-              On this site, we can experiment with this law with pictures. We can either choose an image on our device or search for an Instagram post. In both scenarios we can see
+              On this site, we can experiment this law with pictures. We can either choose an image on our device or search for an Instagram post. In both scenarios we can see
               the distribution of the digits and obtain a degree of falsity. Specifically, after sending the image, the site uses all the first digits of each pixel color code
               and calculate their frequency. Then, the site compares the results with Benford's law to estimate a factor. This allows to see the authenticity of an image. This 
-              is one of the many applications of this particular law. 
+              is one of the many applications of this law. 
           </Typography>
         </div>
       </div>

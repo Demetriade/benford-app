@@ -34,4 +34,5 @@
 .cardImg {
     text-align: center;
     width: 35vw;
+    min-width: 200px;
 }

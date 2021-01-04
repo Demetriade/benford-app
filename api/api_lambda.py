@@ -13,12 +13,14 @@ def image_receiver(message, _):
     print(f"Image: {im}")
     #if not message.get("body", {}).get("uploadedImage"):
     if not im['uploadedImage']:
-        return {"statusCode": 400, "headers": {"Content-Type": "application/json"}, "body": json.dumps({"Error": "Invalid request content"})}
+        return {"statusCode": 400, "headers": {"Content-Type": "application/json", 'Access-Control-Allow-Origin': '*'}, "body": json.dumps({"Error": "Invalid request content"})}
 
     print(f"encoded image: {im['uploadedImage']}")
     percents = get_percents(im['uploadedImage'])
     print(f"Results: {percents}")
-    return {"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": json.dumps({"text": "ok bien recu!", "percents": percents})}
+    return {"statusCode": 200,
+             "headers": {"Content-Type": "application/json", 'Access-Control-Allow-Origin': '*'},
+             "body": json.dumps({"text": "ok bien recu!", "percents": percents})}
 
 
 def get_percents(base64_string):

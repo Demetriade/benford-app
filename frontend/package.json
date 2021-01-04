@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "proxy": "https://2ymo7jpddd.execute-api.us-east-1.amazonaws.com/production",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.2",

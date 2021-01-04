@@ -74,13 +74,14 @@ const Home = () => {
   }
 
   function send(base64) {
+    // 'Access-Control-Allow-Headers': '*',
+    // 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
     const headers = {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
       'Accept': 'application/json'
-
     }
-    axios.post("/image", JSON.stringify({"uploadedImage": base64}), {
+    axios.post("https://2ymo7jpddd.execute-api.us-east-1.amazonaws.com/production/image", JSON.stringify({"uploadedImage": base64}), {
           headers: headers
         })
           .then(response => { 
