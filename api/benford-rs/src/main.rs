@@ -4,11 +4,10 @@ extern crate base64;
 extern crate jpeg_decoder as jpeg;
 
 fn main() {
-    println!("Hello, world!");
     let base64_image = "";
-    let decoded_image = base64::decode(base64_poney).unwrap();
+    let decoded_image = base64::decode(base64_image).unwrap();
 
-    let mut decoder = jpeg::Decoder::new(&*decoded_poney);
+    let mut decoder = jpeg::Decoder::new(&*decoded_image);
     let pixels = decoder.decode().expect("failed to decode image");
     // let metadata = decoder.info().unwrap();
 
